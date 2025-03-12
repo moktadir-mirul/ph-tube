@@ -27,35 +27,42 @@ const fetchAllVideos = () => {
 
 const loadVideos = (videos) => {
     const videoContainer = document.getElementById('video-container');
+    videoContainer.innerHTML = '';
     videos.forEach(video => {
         const div = document.createElement('div');
         div.innerHTML =`
-                    <div class="card bg-base-100 space-y-4 rounded-lg">
-                <figure>
-                  <img
-                    src="${video.thumbnail}"
-                    alt="Shoes" />
-                </figure>
+            <div class="card bg-base-100 space-y-4 rounded-lg">
+                <div class="rounded-lg relative">
+                    <figure class="rounded-lg relative ">
+                        <img class="w-full h-[150px] object-cover"
+                          src="${video.thumbnail}"
+                          alt="Shoes" />
+                          <p class="px-2 rounded-sm text-white bg-black text-xs absolute bottom-2 right-4">3hrs 56 min ago</p>
+                      </figure>
+                      
+                </div>
                 <div class="flex gap-3">
                     <div class="avatar">
                         <div class="w-12 h-12 rounded-full">
-                          <img src="https://i.ibb.co/D9wWRM6/olivia.jpg" />
+                          <img src="${video.authors[0].profile_picture}" />
                         </div>
                     </div>
-                    <div class="">
-                        <h2 class="card-title text-xl">Shape of You</h2>
-                        <div>
-                            <p class="text-gray-500 text-lg">Awlad Hossain</p>
-                            <p class="text-gray-500 text-base">2.1 views</p>
+                    <div class="space-y-2">
+                        <h2 class="card-title text-lg">${video.title}</h2>
+                        <div class="space-y-2">
+                            <div class="flex gap-2">
+                                <p class="text-gray-500 text-sm">${video.authors[0].profile_name}</p>
+                                <img class="w-6" src="https://img.icons8.com/color/48/verified-badge.png" alt="verified-badge"/>
+                            </div>
+                            <p class="text-gray-500 text-xs">${video.others.views} views</p>
                         </div>
                     </div>
-                
                 </div>
-              </div>
+            </div>
         `
+        videoContainer.append(div);
     });
 }
 fetchAllVideos();
 fetchCategories();
-loadButtons();
-loadVideos();
+
