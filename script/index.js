@@ -9,16 +9,22 @@ const loadButtons = (categories) => {
     console.log(btnContainer);
     
     for (let cat of categories) {
-        console.log(cat);
-        
         const div = document.createElement('div');
         div.innerHTML= `
-        <button class="btn btn-lg ">${cat.category}</button>
+        <button id="${cat.category_id}" class="btn btn-lg hover:bg-[#FF1F3D] hover:text-white duration-200" onClick="loadVideobyCategories('${cat.category_id}')">${cat.category}</button>
         `
         btnContainer.appendChild(div);
     }
     
 }
+
+function loadVideobyCategories(id) {
+    const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
+    fetch(url)
+    .then(res => res.json())
+    .then(data => loadVideos(data.category))
+}
+
 const fetchAllVideos = () => {
     fetch('https://openapi.programming-hero.com/api/phero-tube/videos')
     .then(res => res.json())
@@ -28,6 +34,19 @@ const fetchAllVideos = () => {
 const loadVideos = (videos) => {
     const videoContainer = document.getElementById('video-container');
     videoContainer.innerHTML = '';
+    console.log(videos.length);
+    
+    if(videos.length <= 0) {
+        videoContainer.innerHTML = `
+        <div class="col-span-full mx-auto py-10 text-center space-y-4">
+                <img class="w-[160px] mx-auto" src="images/Icon.png" alt="">
+                <h1 class="font-bold text-2xl">
+                    Oops!! Sorry, There is no content here.
+                </h1>
+            </div>
+        `
+        return;
+    }
     videos.forEach(video => {
         const div = document.createElement('div');
         div.innerHTML =`
@@ -63,6 +82,6 @@ const loadVideos = (videos) => {
         videoContainer.append(div);
     });
 }
-fetchAllVideos();
+
 fetchCategories();
 
