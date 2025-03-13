@@ -1,12 +1,20 @@
+const removeActive = () => {
+    const btns = document.getElementsByClassName('active');
+    for(let btn of btns) {
+        btn.classList.remove('active'); 
+    }
+    
+}
+
 function fetchCategories () {
     fetch('https://openapi.programming-hero.com/api/phero-tube/categories')
     .then(res => res.json())
     .then(data => loadButtons(data.categories)
     )
-};
+}
+
 const loadButtons = (categories) => {
     const btnContainer = document.getElementById('btn-container');
-    console.log(btnContainer);
     
     for (let cat of categories) {
         const div = document.createElement('div');
@@ -19,6 +27,9 @@ const loadButtons = (categories) => {
 }
 
 function loadVideobyCategories(id) {
+    removeActive();
+    const activeBtn = document.getElementById(`${id}`);
+    activeBtn.classList.add('active');
     const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
     fetch(url)
     .then(res => res.json())
@@ -26,6 +37,9 @@ function loadVideobyCategories(id) {
 }
 
 const fetchAllVideos = () => {
+    removeActive();
+    const allBtn = document.getElementById('allBtn');
+    allBtn.classList.add('active');
     fetch('https://openapi.programming-hero.com/api/phero-tube/videos')
     .then(res => res.json())
     .then(data => loadVideos(data.videos))
@@ -33,8 +47,8 @@ const fetchAllVideos = () => {
 
 const loadVideos = (videos) => {
     const videoContainer = document.getElementById('video-container');
+    
     videoContainer.innerHTML = '';
-    console.log(videos.length);
     
     if(videos.length <= 0) {
         videoContainer.innerHTML = `

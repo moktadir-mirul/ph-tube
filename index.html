@@ -15,6 +15,10 @@
         .inter {
             font-family: "Inter", sans-serif;
         }
+        .active {
+            background-color: #FF1F3D;
+            color: white;
+        }
     </style>
 </head>
 <body class="inter">
@@ -36,7 +40,7 @@
     <main class="w-11/12 mx-auto">
         <nav id="btn-container" class="flex justify-center py-5 text-white gap-3">
             <div>
-                <button class="btn btn-lg text-lg hover:bg-[#FF1F3D] hover:text-white duration-200" onclick="fetchAllVideos()">All</button>
+                <button id="allBtn" class="btn btn-lg text-lg hover:bg-[#FF1F3D] hover:text-white duration-200" onclick="fetchAllVideos()">All</button>
             </div>
         </nav>
         <section id="video-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 pb-10">
